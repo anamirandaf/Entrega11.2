@@ -25,29 +25,25 @@
 
         <script>
             document.getElementById('registroForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Evita que el formulario se envíe automáticamente.
+                event.preventDefault(); 
     
-                // Obtén los valores de los campos del formulario.
+        
                 var nombre = document.getElementById('nombre').value;
                 var apellido = document.getElementById('apellido').value;
                 var fechaNacimiento = document.getElementById('fecha_nacimiento').value;
     
-                // Crea un objeto JavaScript con los datos del formulario.
                 var datos = {
                     nombre: nombre,
                     apellido: apellido,
                     fecha_nacimiento: fechaNacimiento
                 };
     
-                // Convierte los datos a formato JSON.
                 var datosJSON = JSON.stringify(datos);
     
-                // Crea una nueva solicitud HTTP (POST) utilizando XMLHttpRequest.
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'https://jsonplaceholder.typicode.com/users', true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
     
-                // Configura la función de devolución de llamada para manejar la respuesta del servidor.
                 xhr.onload = function () {
                     if (xhr.status === 201) {
                         console.log('Respuesta del servidor:', xhr.responseText);
@@ -58,7 +54,6 @@
                     }
                 };
     
-                // Envía los datos JSON al servidor.
                 xhr.send(datosJSON);
             });
         </script>
