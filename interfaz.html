@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Formulario de registro</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h2>Formulario de Registro</h2>
+        <form action="https://jsonplaceholder.typicode.com/users" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+    
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required><br><br>
+    
+            <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
+    
+            <input type="submit" value="Registrarse">
+        </form>
+
+        <script>
+            document.getElementById('registroForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita que el formulario se envíe automáticamente.
+    
+                // Obtén los valores de los campos del formulario.
+                var nombre = document.getElementById('nombre').value;
+                var apellido = document.getElementById('apellido').value;
+                var fechaNacimiento = document.getElementById('fecha_nacimiento').value;
+    
+                // Crea un objeto JavaScript con los datos del formulario.
+                var datos = {
+                    nombre: nombre,
+                    apellido: apellido,
+                    fecha_nacimiento: fechaNacimiento
+                };
+    
+                // Convierte los datos a formato JSON.
+                var datosJSON = JSON.stringify(datos);
+    
+                // Crea una nueva solicitud HTTP (POST) utilizando XMLHttpRequest.
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://jsonplaceholder.typicode.com/users', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+    
+                // Configura la función de devolución de llamada para manejar la respuesta del servidor.
+                xhr.onload = function () {
+                    if (xhr.status === 201) {
+                        console.log('Respuesta del servidor:', xhr.responseText);
+                        alert('Registro exitoso. Datos enviados al servidor.');
+                    } else {
+                        console.error('Error en la solicitud:', xhr.status);
+                        alert('Hubo un error al enviar los datos al servidor.');
+                    }
+                };
+    
+                // Envía los datos JSON al servidor.
+                xhr.send(datosJSON);
+            });
+        </script>
+    </body>
+</html>
